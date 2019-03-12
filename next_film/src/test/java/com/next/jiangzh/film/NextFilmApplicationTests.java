@@ -3,6 +3,8 @@ package com.next.jiangzh.film;
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.next.jiangzh.film.dao.entity.NextUser;
 import com.next.jiangzh.film.dao.mapper.NextUserMapper;
 import com.next.jiangzh.film.example.dao.UserMapper;
@@ -98,9 +100,27 @@ public class NextFilmApplicationTests {
 	@Test
 	public void defineSqlTest(){
 
-		List<NextUser> nextUsers = nextUserMapper.getUsers();
+		IPage<NextUser> iPage = new Page<>();
+		iPage.setCurrent(1);
+		iPage.setSize(2);
+
+		List<NextUser> nextUsers = nextUserMapper.getUsers(iPage);
 
 		nextUsers.forEach(System.out::println);
+
+	}
+
+	@Test
+	public void pageTest(){
+
+		IPage<NextUser> iPage = new Page<>();
+		iPage.setCurrent(1);
+		iPage.setSize(2);
+
+		IPage<NextUser> nextUserIPage = nextUserMapper.selectPage(iPage, null);
+
+		System.out.println("nextUserIPage="+nextUserIPage.getTotal());
+		nextUserIPage.getRecords().forEach(System.out::println);
 
 	}
 

@@ -97,3 +97,42 @@
 2019-03-13 07:40:08.942 DEBUG 11120 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : <==      Total: 5
 2019-03-13 07:40:08.964  INFO 11120 --- [Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-03-13 07:40:08.971  INFO 11120 --- [Thread-3] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2019-03-13 07:46:55.983  INFO 7448 --- [main] c.n.j.film.NextFilmApplicationTests      : Starting NextFilmApplicationTests on DESKTOP-6117BCF with PID 7448 (started by A in F:\workSpace\next_workspace\film_workspace\next_film)
+2019-03-13 07:46:55.986 DEBUG 7448 --- [main] c.n.j.film.NextFilmApplicationTests      : Running with Spring Boot v2.2.0.BUILD-SNAPSHOT, Spring v5.1.5.RELEASE
+2019-03-13 07:46:55.987  INFO 7448 --- [main] c.n.j.film.NextFilmApplicationTests      : No active profile set, falling back to default profiles: default
+2019-03-13 07:47:00.174  INFO 7448 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2019-03-13 07:47:01.783  INFO 7448 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:47:02.949  INFO 7448 --- [main] c.n.j.film.NextFilmApplicationTests      : Started NextFilmApplicationTests in 8.202 seconds (JVM running for 12.795)
+2019-03-13 07:47:03.698 DEBUG 7448 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==>  Preparing: SELECT COUNT(1) FROM next_user 
+2019-03-13 07:47:04.080 DEBUG 7448 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==> Parameters: 
+2019-03-13 07:47:04.174 DEBUG 7448 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==>  Preparing: SELECT UUID,user_name,user_pwd FROM next_user LIMIT ?,? 
+2019-03-13 07:47:04.189 DEBUG 7448 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==> Parameters: 0(Long), 2(Long)
+2019-03-13 07:47:04.207 DEBUG 7448 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : <==      Total: 2
+2019-03-13 07:47:04.229  INFO 7448 --- [Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:47:04.251  INFO 7448 --- [Thread-3] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2019-03-13 07:48:46.768  INFO 6140 --- [main] c.n.j.film.NextFilmApplicationTests      : Starting NextFilmApplicationTests on DESKTOP-6117BCF with PID 6140 (started by A in F:\workSpace\next_workspace\film_workspace\next_film)
+2019-03-13 07:48:46.771 DEBUG 6140 --- [main] c.n.j.film.NextFilmApplicationTests      : Running with Spring Boot v2.2.0.BUILD-SNAPSHOT, Spring v5.1.5.RELEASE
+2019-03-13 07:48:46.772  INFO 6140 --- [main] c.n.j.film.NextFilmApplicationTests      : No active profile set, falling back to default profiles: default
+2019-03-13 07:48:50.603  INFO 6140 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2019-03-13 07:48:52.326  INFO 6140 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:48:54.005  INFO 6140 --- [main] c.n.j.film.NextFilmApplicationTests      : Started NextFilmApplicationTests in 8.513 seconds (JVM running for 12.853)
+2019-03-13 07:48:55.082 DEBUG 6140 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==>  Preparing: SELECT COUNT(1) FROM next_user 
+2019-03-13 07:48:55.569 DEBUG 6140 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==> Parameters: 
+2019-03-13 07:48:55.670 DEBUG 6140 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==>  Preparing: SELECT UUID,user_name,user_pwd FROM next_user LIMIT ?,? 
+2019-03-13 07:48:55.686 DEBUG 6140 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : ==> Parameters: 0(Long), 2(Long)
+2019-03-13 07:48:55.703 DEBUG 6140 --- [main] c.n.j.f.d.m.NextUserMapper.selectPage    : <==      Total: 2
+2019-03-13 07:48:55.726  INFO 6140 --- [Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:48:55.738  INFO 6140 --- [Thread-3] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2019-03-13 07:50:59.559  INFO 5364 --- [main] c.n.j.film.NextFilmApplicationTests      : Starting NextFilmApplicationTests on DESKTOP-6117BCF with PID 5364 (started by A in F:\workSpace\next_workspace\film_workspace\next_film)
+2019-03-13 07:50:59.564 DEBUG 5364 --- [main] c.n.j.film.NextFilmApplicationTests      : Running with Spring Boot v2.2.0.BUILD-SNAPSHOT, Spring v5.1.5.RELEASE
+2019-03-13 07:50:59.565  INFO 5364 --- [main] c.n.j.film.NextFilmApplicationTests      : No active profile set, falling back to default profiles: default
+2019-03-13 07:51:05.305  INFO 5364 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2019-03-13 07:51:08.063  INFO 5364 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:51:09.825  INFO 5364 --- [main] c.n.j.film.NextFilmApplicationTests      : Started NextFilmApplicationTests in 11.517 seconds (JVM running for 14.506)
+2019-03-13 07:51:10.824 DEBUG 5364 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : ==>  Preparing: SELECT COUNT(1) FROM next_user 
+2019-03-13 07:51:11.359 DEBUG 5364 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : ==> Parameters: 
+2019-03-13 07:51:11.456 DEBUG 5364 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : ==>  Preparing: select * from next_user LIMIT ?,? 
+2019-03-13 07:51:11.468 DEBUG 5364 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : ==> Parameters: 0(Long), 2(Long)
+2019-03-13 07:51:11.481 DEBUG 5364 --- [main] c.n.j.f.d.m.NextUserMapper.getUsers      : <==      Total: 2
+2019-03-13 07:51:11.505  INFO 5364 --- [Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-13 07:51:11.518  INFO 5364 --- [Thread-3] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
