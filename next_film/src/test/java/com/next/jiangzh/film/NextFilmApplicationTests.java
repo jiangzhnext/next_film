@@ -95,4 +95,13 @@ public class NextFilmApplicationTests {
 
 	}
 
+	@Test
+	public void defineSqlTest(){
+
+		List<NextUser> nextUsers = nextUserMapper.getUsers();
+
+		nextUsers.forEach(System.out::println);
+
+	}
+
 }
