@@ -1,5 +1,8 @@
 package com.next.jiangzh.film;
 
+import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.next.jiangzh.film.dao.entity.NextUser;
 import com.next.jiangzh.film.dao.mapper.NextUserMapper;
 import com.next.jiangzh.film.example.dao.UserMapper;
@@ -36,9 +39,59 @@ public class NextFilmApplicationTests {
 
 	@Test
 	public void mybatisGeneratorTest(){
-		List<NextUser> nextUsers = nextUserMapper.selectList(null);
+
+		AbstractWrapper abstractWrapper = new QueryWrapper();
+		abstractWrapper.eq("user_name","admin");
+
+//		List<NextUser> nextUsers = nextUserMapper.selectList(null);
+		List<NextUser> nextUsers = nextUserMapper.selectList(abstractWrapper);
 
 		nextUsers.forEach(System.out::println);
+
+	}
+
+	@Test
+	public void addUser(){
+		NextUser nextUser = new NextUser();
+		nextUser.setUserName("next学院");
+		nextUser.setUserPwd("looks good");
+
+		int isSuccess = nextUserMapper.insert(nextUser);
+
+		System.out.println("isSuccess="+(isSuccess == 1 ? true : false));
+	}
+
+	@Test
+	public void updateUser(){
+		NextUser nextUser = new NextUser();
+//		nextUser.setUuid(6);
+//		nextUser.setUserName("next学院");
+		nextUser.setUserPwd("looks very good !!!~ ");
+
+//		int isSuccess = nextUserMapper.updateById(nextUser);
+
+		AbstractWrapper abstractWrapper = new UpdateWrapper();
+		abstractWrapper.eq("user_name","next学院");
+
+		int isSuccess = nextUserMapper.update(nextUser,abstractWrapper);
+
+		System.out.println("isSuccess="+(isSuccess == 1 ? true : false));
+	}
+
+	@Test
+	public void deleteUser(){
+		int id = 6;
+		int isSuccess = nextUserMapper.deleteById(id);
+		System.out.println("isSuccess="+(isSuccess == 1 ? true : false));
+	}
+
+	@Test
+	public void queryById(){
+		int id = 5;
+
+		NextUser nextUser = nextUserMapper.selectById(id);
+
+		System.out.println("isSuccess="+nextUser);
 
 	}
 
