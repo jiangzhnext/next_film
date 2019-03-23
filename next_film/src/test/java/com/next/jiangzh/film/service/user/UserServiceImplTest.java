@@ -1,6 +1,7 @@
 package com.next.jiangzh.film.service.user;
 
 import com.next.jiangzh.film.controller.user.vo.EnrollUserVO;
+import com.next.jiangzh.film.controller.user.vo.UserInfoVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,10 +40,18 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void describeUserInfo() {
+    public void describeUserInfo() throws CommonServiceExcetion {
+        String userId = "5";
+        System.out.println(userServiceAPI.describeUserInfo(userId));
     }
 
     @Test
-    public void updateUserInfo() {
+    public void updateUserInfo() throws CommonServiceExcetion {
+        UserInfoVO userInfoVO = new UserInfoVO();
+        userInfoVO.setUuid(6);
+        userInfoVO.setUsername("next");
+        userInfoVO.setLifeState("0");
+
+        System.out.println(userServiceAPI.updateUserInfo(userInfoVO));
     }
 }
