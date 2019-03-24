@@ -22,6 +22,10 @@ public class UserInfoVO extends BaseVO {
     private Long beginTime;
     private Long updateTime;
 
+    public Integer getUuid(){
+        return this.getId();
+    }
+
 
     @Override
     public void checkParam() throws ParamErrorException {

@@ -54,4 +54,17 @@ public class UserController {
         return BaseResponseVO.success(userInfoVO);
     }
 
+
+    @RequestMapping(value = "updateUserInfo",method = RequestMethod.POST)
+    public BaseResponseVO updateUserInfo(@RequestBody UserInfoVO userInfoVO) throws CommonServiceExcetion, ParamErrorException {
+
+        userInfoVO.checkParam();
+
+        UserInfoVO result = userServiceAPI.updateUserInfo(userInfoVO);
+
+        userInfoVO.checkParam();
+
+        return BaseResponseVO.success(result);
+    }
+
 }
