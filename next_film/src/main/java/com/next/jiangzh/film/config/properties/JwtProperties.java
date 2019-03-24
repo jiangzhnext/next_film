@@ -1,4 +1,4 @@
-package com.next.jiangzh.film.config.properties.properties;
+package com.next.jiangzh.film.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

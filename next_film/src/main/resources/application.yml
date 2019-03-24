@@ -1,6 +1,9 @@
 server:
   port: 8080
 
+rest:
+  auth-open : true # 如果为true，则开启JWT的验证
+
 jwt:
   header: Authorization   #http请求头所需要的字段
   secret: mySecret        #jwt秘钥

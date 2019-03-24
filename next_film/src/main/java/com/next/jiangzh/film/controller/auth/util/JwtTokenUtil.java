@@ -1,7 +1,7 @@
 package com.next.jiangzh.film.controller.auth.util;
 
 
-import com.next.jiangzh.film.config.properties.properties.JwtProperties;
+import com.next.jiangzh.film.config.properties.JwtProperties;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
