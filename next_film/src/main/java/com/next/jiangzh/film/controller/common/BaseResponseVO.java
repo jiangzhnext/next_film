@@ -18,8 +18,8 @@ public final class BaseResponseVO<M> {
     private String imgPre;
 
     // 分页使用
-    private int nowPage;
-    private int totalPage;
+    private Integer nowPage;
+    private Integer totalPage;
 
 
     public static<M> BaseResponseVO success(){
