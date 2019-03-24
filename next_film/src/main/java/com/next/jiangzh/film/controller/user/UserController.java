@@ -9,16 +9,24 @@ import com.next.jiangzh.film.controller.user.vo.EnrollUserVO;
 import com.next.jiangzh.film.controller.user.vo.UserInfoVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import com.next.jiangzh.film.service.user.UserServiceAPI;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/nextfilm/user/")
+@RequestMapping(value = "/user/")
+@Api("用户模块相关的 API")
 public class UserController {
 
     @Autowired
     private UserServiceAPI userServiceAPI;
 
+    @ApiOperation(value = "用户名重复性验证",notes = "用户名重复性验证")
+    @ApiImplicitParam(name = "username",
+            value = "待验证的用户名称",
+            paramType = "query", required = true, dataType = "string")
     @RequestMapping(value = "check",method = RequestMethod.POST)
     public BaseResponseVO checkUser(String username) throws CommonServiceExcetion, NextFilmException {
         if(ToolUtils.isEmpty(username)){
