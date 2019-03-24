@@ -1,10 +1,16 @@
 server:
   port: 8080
 
+jwt:
+  header: Authorization   #http请求头所需要的字段
+  secret: mySecret        #jwt秘钥
+  expiration: 604800      #7天 单位:秒
+  md5-key: randomKey      #md5加密混淆key
+
 mybatis-plus:
   mapper-locations: classpath*:com/next/jiangzh/**/xml/*Mapper.xml
   global-config:
-    id-type: 0  #0:���ݿ�ID����   1:�û�����id  2:ȫ��Ψһid(IdWorker)  3:ȫ��ΨһID(uuid)
+    id-type: 0
     db-column-underline: false
     refresh-mapper: true
 
