@@ -1,10 +1,13 @@
 package com.next.jiangzh.film.controller.user.vo;
 
+import com.next.jiangzh.film.controller.common.BaseVO;
+import com.next.jiangzh.film.controller.exception.ParamErrorException;
 import lombok.Data;
 
 @Data
-public class UserInfoVO {
+public class UserInfoVO extends BaseVO {
 
+    private Integer id;
     private Integer uuid;
     private String username;
     private String nickname;
@@ -20,4 +23,8 @@ public class UserInfoVO {
     private Long updateTime;
 
 
+    @Override
+    public void checkParam() throws ParamErrorException {
+        // 自己加入验证逻辑
+    }
 }
