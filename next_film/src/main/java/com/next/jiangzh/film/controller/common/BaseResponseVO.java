@@ -72,6 +72,13 @@ public final class BaseResponseVO<M> {
         return responseVO;
     }
 
+    public static<M> BaseResponseVO serviceFailed(int status,String msg){
+        BaseResponseVO baseResponseVO = new BaseResponseVO();
+        baseResponseVO.setStatus(status);
+        baseResponseVO.setMsg(msg);
+        return baseResponseVO;
+    }
+
     public static<M> BaseResponseVO serviceFailed(String msg){
         BaseResponseVO baseResponseVO = new BaseResponseVO();
         baseResponseVO.setStatus(1);
