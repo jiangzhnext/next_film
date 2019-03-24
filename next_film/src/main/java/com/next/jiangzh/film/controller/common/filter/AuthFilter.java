@@ -2,9 +2,13 @@ package com.next.jiangzh.film.controller.common.filter;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.next.jiangzh.film.config.properties.JwtProperties;
 import com.next.jiangzh.film.controller.auth.util.JwtTokenUtil;
 import com.next.jiangzh.film.controller.common.BaseResponseVO;
+import com.next.jiangzh.film.controller.common.TraceUtil;
+import com.next.jiangzh.film.dao.entity.NextUserT;
+import com.next.jiangzh.film.dao.mapper.NextUserTMapper;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * 对客户端请求的jwt token验证过滤器
@@ -36,9 +41,12 @@ public class AuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @Autowired
+    private NextUserTMapper nextUserTMapper;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request.getServletPath().equals("/auth")) {
+        if (request.getServletPath().equals("/auth") || request.getServletPath().equals("/nextfilm/user/register")) {
             chain.doFilter(request, response);
             return;
         }
@@ -48,7 +56,17 @@ public class AuthFilter extends OncePerRequestFilter {
         if (requestHeader != null && requestHeader.startsWith("Next ")) {
             authToken = requestHeader.substring(5);
 
-            log.info("username : {}" , jwtTokenUtil.getUsernameFromToken(authToken));
+            String userName = jwtTokenUtil.getUsernameFromToken(authToken);
+
+            // 不正规的写法，注入的应该是Service层
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("user_name",userName);
+
+            List<NextUserT> list = nextUserTMapper.selectList(queryWrapper);
+            if(list!=null && list.size()>0){
+                NextUserT nextUserT = list.get(0);
+                TraceUtil.initThread(nextUserT.getUuid()+"");
+            }
 
             //验证token是否过期,包含了验证jwt是否正确
             try {

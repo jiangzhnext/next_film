@@ -67,4 +67,17 @@ public class UserController {
         return BaseResponseVO.success(result);
     }
 
+    @RequestMapping(value = "logout",method = RequestMethod.POST)
+    public BaseResponseVO logout() throws CommonServiceExcetion, ParamErrorException {
+
+        String userId = TraceUtil.getUserId();
+
+        /*
+            1、用户信息放入Redis缓存
+            2、去掉用户缓存
+         */
+
+        return BaseResponseVO.success();
+    }
+
 }

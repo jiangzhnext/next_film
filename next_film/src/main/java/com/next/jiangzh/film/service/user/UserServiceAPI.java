@@ -32,4 +32,5 @@ public interface UserServiceAPI {
      */
     UserInfoVO updateUserInfo(UserInfoVO userInfoVO) throws CommonServiceExcetion;
 
+
 }
