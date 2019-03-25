@@ -40,6 +40,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "用户信息注册",notes = "用户名、密码和手机号必须填写")
+    @ApiImplicitParam(name = "enrollUserVO",
+            value = "用户登记注册信息实体", required = true, dataType = "EnrollUserVO")
     @RequestMapping(value = "register",method = RequestMethod.POST)
     public BaseResponseVO register(@RequestBody EnrollUserVO enrollUserVO) throws CommonServiceExcetion, ParamErrorException {
         // 领域模型 贫血模型 - 充血模型
