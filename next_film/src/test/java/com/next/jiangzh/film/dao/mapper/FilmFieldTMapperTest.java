@@ -1,5 +1,6 @@
 package com.next.jiangzh.film.dao.mapper;
 
+import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,12 @@ public class FilmFieldTMapperTest {
     public void describeFieldListTest(){
         List<CinemaFilmVO> cinemaFilmVOS = filmFieldTMapper.describeFieldList("1");
         System.out.println(cinemaFilmVOS);
+    }
+
+    @Test
+    public void describeFilmInfoTest(){
+        CinemaFilmInfoVO cinemaFilmInfoVO = filmFieldTMapper.describeFilmInfoByFieldId("1");
+        System.out.println(cinemaFilmInfoVO);
     }
 
 }

@@ -55,4 +55,20 @@
         ON fe.`film_id` = info.`film_id`
         WHERE fe.`cinema_id` = #{cinemaId}
     </select>
+
+
+    <select id="describeFilmInfoByFieldId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO">
+        SELECT
+            info.`film_id`,
+            info.`film_name`,
+            info.`film_length`,
+            info.`film_language`,
+            info.`film_cats`,
+            info.`actors`,
+            info.`img_address`
+        FROM
+            film_field_t fe LEFT JOIN film_hall_film_info_t info ON fe.`film_id` = info.`film_id`
+        WHERE fe.`UUID` = #{fieldId}
+    </select>
+
 </mapper>

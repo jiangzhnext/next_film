@@ -1,5 +1,6 @@
 package com.next.jiangzh.film.dao.mapper;
 
+import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
 import com.next.jiangzh.film.dao.entity.FilmFieldT;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -18,5 +19,7 @@ import java.util.List;
 public interface FilmFieldTMapper extends BaseMapper<FilmFieldT> {
 
     List<CinemaFilmVO> describeFieldList(@Param("cinemaId")String cinemaId);
+
+    CinemaFilmInfoVO describeFilmInfoByFieldId(@Param("fieldId")String fieldId);
 
 }
