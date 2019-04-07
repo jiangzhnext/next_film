@@ -2,6 +2,7 @@ package com.next.jiangzh.film.service.cinema;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaVO;
+import com.next.jiangzh.film.controller.cinema.vo.condition.BrandResVO;
 import com.next.jiangzh.film.controller.cinema.vo.request.DescribeCinemaRequestVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -36,6 +39,12 @@ public class CinemaServiceImplTest {
 
     @Test
     public void describeBrandConditions() {
+
+        List<BrandResVO> brands = cinemaServiceAPI.describeBrandConditions(1);
+        brands.stream().forEach(
+                data -> System.out.println(data)
+        );
+
     }
 
     @Test

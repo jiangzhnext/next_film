@@ -8,7 +8,10 @@ import com.next.jiangzh.film.controller.cinema.vo.condition.AreaResVO;
 import com.next.jiangzh.film.controller.cinema.vo.condition.BrandResVO;
 import com.next.jiangzh.film.controller.cinema.vo.condition.HallTypeResVO;
 import com.next.jiangzh.film.controller.cinema.vo.request.DescribeCinemaRequestVO;
+import com.next.jiangzh.film.dao.entity.FilmAreaDictT;
+import com.next.jiangzh.film.dao.entity.FilmBrandDictT;
 import com.next.jiangzh.film.dao.entity.FilmCinemaT;
+import com.next.jiangzh.film.dao.entity.FilmHallDictT;
 import com.next.jiangzh.film.dao.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,19 +76,98 @@ public class CinemaServiceImpl implements CinemaServiceAPI {
         return cinemaPage;
     }
 
-    @Override
-    public List<BrandResVO> describeBrandConditions(int brandId) {
-        return null;
+    public boolean checkCondition(int conditionId,String conditionType){
+        switch (conditionType){
+            case "brand":
+                FilmBrandDictT filmBrandDictT = brandDictMapper.selectById(conditionId);
+                if(filmBrandDictT!=null && filmBrandDictT.getUuid()!=null){
+                    return true;
+                }else{
+                    return false;
+                }
+            case "area":
+                FilmAreaDictT filmAreaDictT = areaDictMapper.selectById(conditionId);
+                if (filmAreaDictT!=null && filmAreaDictT.getUuid()!=null){
+                    return true;
+                }else{
+                    return false;
+                }
+            case "hallType":
+                FilmHallDictT filmHallDictT = hallDictMapper.selectById(conditionId);
+                if(filmHallDictT!=null && filmHallDictT.getUuid()!=null){
+                    return true;
+                }else{
+                    return false;
+                }
+            default:
+                return false;
+        }
     }
 
     @Override
-    public List<AreaResVO> describeAreaConditions(int areaId) {
-        return null;
+    public List<BrandResVO> describeBrandConditions(final int brandId) {
+        // 获取所有列表
+        List<FilmBrandDictT> brands = brandDictMapper.selectList(null);
+
+        // 并且将对应的品牌设置为isActive=true
+        List<BrandResVO> result
+                = brands.stream().map((data)->{
+
+            BrandResVO brandResVO = new BrandResVO();
+            if(brandId == data.getUuid()){
+                brandResVO.setActive(true);
+            }
+            brandResVO.setBrandId(brandId+"");
+            brandResVO.setBrandName(data.getShowName());
+            return  brandResVO;
+
+        }).collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    public List<AreaResVO> describeAreaConditions(final int areaId) {
+        // 获取所有列表
+        List<FilmAreaDictT> areaDicts = areaDictMapper.selectList(null);
+
+        // 并且将对应的区域设置为isActive=true
+        List<AreaResVO> result
+                = areaDicts.stream().map((data)->{
+
+            AreaResVO areaResVO = new AreaResVO();
+            if(areaId == data.getUuid()){
+                areaResVO.setActive(true);
+            }
+            areaResVO.setAreaId(areaId+"");
+            areaResVO.setAreaName(data.getShowName());
+            return  areaResVO;
+
+        }).collect(Collectors.toList());
+
+        return result;
     }
 
     @Override
     public List<HallTypeResVO> describeHallTypeConditions(int hallTypeId) {
-        return null;
+        // 获取所有列表
+        List<FilmHallDictT> areaDicts = hallDictMapper.selectList(null);
+
+        // 并且将对应的区域设置为isActive=true
+        List<HallTypeResVO> result
+                = areaDicts.stream().map((data)->{
+
+            HallTypeResVO hallTypeResVO = new HallTypeResVO();
+            if(hallTypeId == data.getUuid()){
+                hallTypeResVO.setActive(true);
+            }
+            hallTypeResVO.setHalltypeId(hallTypeId+"");
+            hallTypeResVO.setHalltypeName(data.getShowName());
+            return  hallTypeResVO;
+
+        }).collect(Collectors.toList());
+
+        return result;
     }
 
     @Override
