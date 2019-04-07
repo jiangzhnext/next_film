@@ -1,5 +1,6 @@
 package com.next.jiangzh.film.service.cinema;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.next.jiangzh.film.controller.cinema.vo.*;
 import com.next.jiangzh.film.controller.cinema.vo.condition.AreaResVO;
 import com.next.jiangzh.film.controller.cinema.vo.condition.BrandResVO;
@@ -13,7 +14,7 @@ public interface CinemaServiceAPI {
     /*
         根据条件查询影院列表
      */
-    List<CinemaVO> describeCinemaInfo(DescribeCinemaRequestVO describeCinemaRequestVO);
+    Page<CinemaVO> describeCinemaInfo(DescribeCinemaRequestVO describeCinemaRequestVO);
 
 
     /*
