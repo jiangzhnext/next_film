@@ -62,12 +62,25 @@
             info.`film_id`,
             info.`film_name`,
             info.`film_length`,
-            info.`film_language`,
+            info.`film_language` as `filmType`,
             info.`film_cats`,
             info.`actors`,
             info.`img_address`
         FROM
             film_field_t fe LEFT JOIN film_hall_film_info_t info ON fe.`film_id` = info.`film_id`
+        WHERE fe.`UUID` = #{fieldId}
+    </select>
+
+    <select id="describeHallInfo"
+            parameterType="java.util.Map"
+            resultType="com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO">
+        SELECT
+            fe.`UUID` AS hallFieldId,
+            fe.`hall_name` AS hallName,
+            fe.`price` AS price,
+            dict.`seat_address` AS seatFile
+        FROM
+        film_field_t fe LEFT JOIN film_hall_dict_t dict ON fe.`hall_id` = dict.`UUID`
         WHERE fe.`UUID` = #{fieldId}
     </select>
 

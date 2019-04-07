@@ -2,6 +2,7 @@ package com.next.jiangzh.film.dao.mapper;
 
 import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
+import com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,12 @@ public class FilmFieldTMapperTest {
     public void describeFilmInfoTest(){
         CinemaFilmInfoVO cinemaFilmInfoVO = filmFieldTMapper.describeFilmInfoByFieldId("1");
         System.out.println(cinemaFilmInfoVO);
+    }
+
+    @Test
+    public void describeHallInfoTest(){
+        FieldHallInfoVO fieldHallInfoVO = filmFieldTMapper.describeHallInfo("1");
+        System.out.println(fieldHallInfoVO);
     }
 
 }
