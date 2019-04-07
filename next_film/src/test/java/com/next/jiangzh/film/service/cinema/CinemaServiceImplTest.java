@@ -57,6 +57,7 @@ public class CinemaServiceImplTest {
 
     @Test
     public void describeCinemaDetails() {
+        System.out.println(cinemaServiceAPI.describeCinemaDetails("1"));
     }
 
     @Test

@@ -172,7 +172,17 @@ public class CinemaServiceImpl implements CinemaServiceAPI {
 
     @Override
     public CinemaDetailVO describeCinemaDetails(String cinemaId) {
-        return null;
+        FilmCinemaT data = cinemaMapper.selectById(cinemaId);
+
+        CinemaDetailVO cinemaDetailVO =
+                CinemaDetailVO.builder()
+                .cinemaAdress(data.getCinemaAddress())
+                .cinemaId(data.getUuid()+"")
+                .cinemaName(data.getCinemaName())
+                .cinemaPhone(data.getCinemaPhone())
+                .imgUrl(data.getImgAddress()).build();
+
+        return cinemaDetailVO;
     }
 
     @Override
