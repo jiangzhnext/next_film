@@ -67,9 +67,11 @@ public class CinemaServiceImplTest {
 
     @Test
     public void describeFilmInfoByFieldId() {
+        System.out.println(cinemaServiceAPI.describeFilmInfoByFieldId("1"));
     }
 
     @Test
     public void describeHallInfoByFieldId() {
+        System.out.println(cinemaServiceAPI.describeHallInfoByFieldId("1"));
     }
 }

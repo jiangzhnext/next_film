@@ -200,11 +200,12 @@ public class CinemaServiceImpl implements CinemaServiceAPI {
 
     @Override
     public CinemaFilmInfoVO describeFilmInfoByFieldId(String fieldId) {
-        return null;
+        return filmFieldMapper.describeFilmInfoByFieldId(fieldId);
     }
 
     @Override
     public FieldHallInfoVO describeHallInfoByFieldId(String fieldId) {
-        return null;
+        return filmFieldMapper.describeHallInfo(fieldId);
     }
+
 }
