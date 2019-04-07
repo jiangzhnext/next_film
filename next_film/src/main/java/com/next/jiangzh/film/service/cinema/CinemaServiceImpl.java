@@ -3,6 +3,7 @@ package com.next.jiangzh.film.service.cinema;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.next.jiangzh.film.controller.cinema.vo.*;
 import com.next.jiangzh.film.controller.cinema.vo.condition.AreaResVO;
 import com.next.jiangzh.film.controller.cinema.vo.condition.BrandResVO;
@@ -187,7 +188,14 @@ public class CinemaServiceImpl implements CinemaServiceAPI {
 
     @Override
     public List<CinemaFilmVO> describeFieldsAndFilmInfo(String cinemaId) {
-        return null;
+        // 确认CinemaId是否有效
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("uuid",cinemaId);
+        Integer isNull = cinemaMapper.selectCount(queryWrapper);
+        if(isNull == 0){
+            return Lists.newArrayList();
+        }
+        return filmFieldMapper.describeFieldList(cinemaId);
     }
 
     @Override

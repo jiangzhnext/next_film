@@ -62,6 +62,7 @@ public class CinemaServiceImplTest {
 
     @Test
     public void describeFieldsAndFilmInfo() {
+        System.out.println(cinemaServiceAPI.describeFieldsAndFilmInfo("1"));
     }
 
     @Test
