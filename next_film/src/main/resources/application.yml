@@ -30,3 +30,7 @@ logging:
   level.com.next.jiangzh: debug
   path: logs/
   file: next-film.log
+
+
+film:
+  img-pre: http://img.nextfilm.cn/
