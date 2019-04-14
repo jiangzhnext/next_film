@@ -9,6 +9,6 @@ public class AreaResVO implements Serializable {
 
     private String areaId;
     private String areaName;
-    private boolean isActive;
+    private String isActive;
 
 }

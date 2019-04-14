@@ -9,6 +9,6 @@ public class BrandResVO implements Serializable {
 
     private String brandId;
     private String brandName;
-    private boolean isActive;
+    private String isActive;
 
 }

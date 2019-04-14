@@ -5,15 +5,15 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.next.jiangzh.film.config.properties.FilmProperties;
 import com.next.jiangzh.film.controller.cinema.vo.*;
+import com.next.jiangzh.film.controller.cinema.vo.condition.AreaResVO;
+import com.next.jiangzh.film.controller.cinema.vo.condition.BrandResVO;
+import com.next.jiangzh.film.controller.cinema.vo.condition.HallTypeResVO;
 import com.next.jiangzh.film.controller.cinema.vo.request.DescribeCinemaRequestVO;
 import com.next.jiangzh.film.controller.cinema.vo.response.FieldInfoRequestVO;
 import com.next.jiangzh.film.controller.common.BaseResponseVO;
 import com.next.jiangzh.film.service.cinema.CinemaServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -80,6 +80,39 @@ public class CinemaController {
         result.put("filmInfo",cinemaVOPage.getRecords());
 
         return BaseResponseVO.success(cinemaVOPage.getCurrent(),cinemaVOPage.getPages(),filmProperties.getImgPre(),result);
+    }
+
+
+    @RequestMapping(value = "/getCondition",method = RequestMethod.GET)
+    public BaseResponseVO getCondition(
+            @RequestParam(name = "brandId",required = false,defaultValue = "99")Integer brandId,
+            @RequestParam(name = "hallType",required = false,defaultValue = "99")Integer hallType,
+            @RequestParam(name = "areaId",required = false,defaultValue = "99")Integer areaId
+    ){
+
+        // 验证id是否有效
+        if(!cinemaServiceAPI.checkCondition(brandId,"brand")){
+            brandId = 99;
+        }
+        if(!cinemaServiceAPI.checkCondition(hallType,"area")){
+            hallType = 99;
+        }
+        if(!cinemaServiceAPI.checkCondition(areaId,"hallType")){
+            areaId = 99;
+        }
+
+        // 获取逻辑层结果
+        List<BrandResVO> brandResVOS = cinemaServiceAPI.describeBrandConditions(brandId);
+        List<AreaResVO> areaResVOS = cinemaServiceAPI.describeAreaConditions(areaId);
+        List<HallTypeResVO> hallTypeResVOS = cinemaServiceAPI.describeHallTypeConditions(hallType);
+
+        // 组织返回参数
+        Map<String,Object> result = Maps.newHashMap();
+        result.put("brandList",brandResVOS);
+        result.put("areaList",areaResVOS);
+        result.put("halltypeList",hallTypeResVOS);
+
+        return BaseResponseVO.success(result);
     }
 
 }
