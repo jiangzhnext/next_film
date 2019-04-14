@@ -1,12 +1,11 @@
 package com.next.jiangzh.film.controller.cinema;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.next.jiangzh.film.config.properties.FilmProperties;
-import com.next.jiangzh.film.controller.cinema.vo.CinemaDetailVO;
-import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
-import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
-import com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO;
+import com.next.jiangzh.film.controller.cinema.vo.*;
+import com.next.jiangzh.film.controller.cinema.vo.request.DescribeCinemaRequestVO;
 import com.next.jiangzh.film.controller.cinema.vo.response.FieldInfoRequestVO;
 import com.next.jiangzh.film.controller.common.BaseResponseVO;
 import com.next.jiangzh.film.service.cinema.CinemaServiceAPI;
@@ -68,6 +67,19 @@ public class CinemaController {
         result.put("hallInfo",fieldHallInfoVO);
 
         return BaseResponseVO.success(filmProperties.getImgPre(),result);
+    }
+
+
+    @RequestMapping(value = "/getCinemas",method = RequestMethod.GET)
+    public BaseResponseVO getCinemas(DescribeCinemaRequestVO requestVO){
+
+        Page<CinemaVO> cinemaVOPage = cinemaServiceAPI.describeCinemaInfo(requestVO);
+
+        // 组织返回参数
+        Map<String,Object> result = Maps.newHashMap();
+        result.put("filmInfo",cinemaVOPage.getRecords());
+
+        return BaseResponseVO.success(cinemaVOPage.getCurrent(),cinemaVOPage.getPages(),filmProperties.getImgPre(),result);
     }
 
 }

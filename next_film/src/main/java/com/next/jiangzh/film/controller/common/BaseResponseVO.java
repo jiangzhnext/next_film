@@ -18,8 +18,8 @@ public final class BaseResponseVO<M> {
     private String imgPre;
 
     // 分页使用
-    private Integer nowPage;
-    private Integer totalPage;
+    private Long nowPage;
+    private Long totalPage;
 
 
     public static<M> BaseResponseVO success(){
@@ -43,7 +43,7 @@ public final class BaseResponseVO<M> {
     }
 
 
-    public static<M> BaseResponseVO success(int nowPage,int totalPage,String imgPre,M m){
+    public static<M> BaseResponseVO success(long nowPage,long totalPage,String imgPre,M m){
         BaseResponseVO responseVO = new BaseResponseVO();
         responseVO.setStatus(0);
         responseVO.setData(m);
