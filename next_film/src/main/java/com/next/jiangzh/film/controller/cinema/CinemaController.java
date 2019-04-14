@@ -4,10 +4,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.next.jiangzh.film.config.properties.FilmProperties;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaDetailVO;
+import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
 import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
+import com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO;
+import com.next.jiangzh.film.controller.cinema.vo.response.FieldInfoRequestVO;
 import com.next.jiangzh.film.controller.common.BaseResponseVO;
 import com.next.jiangzh.film.service.cinema.CinemaServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +48,24 @@ public class CinemaController {
         Map<String,Object> result = Maps.newHashMap();
         result.put("cinemaInfo",cinemaDetailVO);
         result.put("filmList",filmList);
+
+        return BaseResponseVO.success(filmProperties.getImgPre(),result);
+    }
+
+
+    @RequestMapping(value = "/getFieldInfo",method = RequestMethod.POST)
+    public BaseResponseVO getFieldInfo(@RequestBody FieldInfoRequestVO requestVO){
+
+        // 获取逻辑层调用结果
+        CinemaDetailVO cinemaDetailVO = cinemaServiceAPI.describeCinemaDetails(requestVO.getCinemaId());
+        FieldHallInfoVO fieldHallInfoVO = cinemaServiceAPI.describeHallInfoByFieldId(requestVO.getFieldId());
+        CinemaFilmInfoVO cinemaFilmInfoVO = cinemaServiceAPI.describeFilmInfoByFieldId(requestVO.getFieldId());
+
+        // 组织返回参数
+        Map<String,Object> result = Maps.newHashMap();
+        result.put("filmInfo",cinemaFilmInfoVO);
+        result.put("cinemaInfo",cinemaDetailVO);
+        result.put("hallInfo",fieldHallInfoVO);
 
         return BaseResponseVO.success(filmProperties.getImgPre(),result);
     }
