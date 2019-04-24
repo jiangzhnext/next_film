@@ -18,4 +18,13 @@
         <result column="film_time" property="filmTime" />
         <result column="film_status" property="filmStatus" />
     </resultMap>
+
+    <select id="describeFilmDetailByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
+
+    </select>
+
+    <select id="describeFilmDetailByFilmName" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
+
+    </select>
+
 </mapper>

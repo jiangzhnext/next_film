@@ -8,4 +8,9 @@
         <result column="actor_name" property="actorName" />
         <result column="actor_img" property="actorImg" />
     </resultMap>
+
+    <select id="describeActorsByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.ActorResultVO">
+
+    </select>
+
 </mapper>
