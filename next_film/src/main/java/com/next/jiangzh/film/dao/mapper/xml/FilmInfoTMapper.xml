@@ -20,11 +20,47 @@
     </resultMap>
 
     <select id="describeFilmDetailByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
-
+        SELECT
+            info.`film_name` AS filmName,
+            detail.`film_en_name` AS filmEnName,
+            info.`img_address` AS imgAddress,
+            detail.`film_score` AS score,
+            detail.`film_score_num` AS scoreNum,
+            info.`film_box_office` AS totalBox,
+            (SELECT GROUP_CONCAT(show_name SEPARATOR ',')
+            FROM film_cat_dict_t cat
+            WHERE FIND_IN_SET (cat.`UUID`,(
+            SELECT
+            REPLACE(TRIM(BOTH '#' FROM film.film_cats),'#',',')
+            FROM film_info_t film WHERE film.`UUID` = info.uuid
+            ))) AS info01,
+            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info2,
+            CONCAT(info.`film_time`,' 大陆上映') AS info03
+        FROM
+            film_info_t info LEFT JOIN film_detail_t detail ON info.`UUID` = detail.`film_id`
+        WHERE info.`UUID` = #{filmId};
     </select>
 
     <select id="describeFilmDetailByFilmName" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
-
+        SELECT
+            info.`film_name` AS filmName,
+            detail.`film_en_name` AS filmEnName,
+            info.`img_address` AS imgAddress,
+            detail.`film_score` AS score,
+            detail.`film_score_num` AS scoreNum,
+            info.`film_box_office` AS totalBox,
+            (SELECT GROUP_CONCAT(show_name SEPARATOR ',')
+            FROM film_cat_dict_t cat
+            WHERE FIND_IN_SET (cat.`UUID`,(
+            SELECT
+            REPLACE(TRIM(BOTH '#' FROM film.film_cats),'#',',')
+            FROM film_info_t film WHERE film.`UUID` = info.uuid
+            ))) AS info01,
+            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info2,
+            CONCAT(info.`film_time`,' 大陆上映') AS info03
+        FROM
+            film_info_t info LEFT JOIN film_detail_t detail ON info.`UUID` = detail.`film_id`
+        WHERE info.film_name LIKE '%#{filmName}%';
     </select>
 
 </mapper>
