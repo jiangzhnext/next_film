@@ -34,7 +34,7 @@
             REPLACE(TRIM(BOTH '#' FROM film.film_cats),'#',',')
             FROM film_info_t film WHERE film.`UUID` = info.uuid
             ))) AS info01,
-            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info2,
+            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info02,
             CONCAT(info.`film_time`,' 大陆上映') AS info03
         FROM
             film_info_t info LEFT JOIN film_detail_t detail ON info.`UUID` = detail.`film_id`
@@ -56,11 +56,11 @@
             REPLACE(TRIM(BOTH '#' FROM film.film_cats),'#',',')
             FROM film_info_t film WHERE film.`UUID` = info.uuid
             ))) AS info01,
-            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info2,
+            CONCAT((SELECT show_name FROM film_source_dict_t source WHERE source.uuid = info.`film_source`),' / ',detail.`film_length`,' 分钟') AS info02,
             CONCAT(info.`film_time`,' 大陆上映') AS info03
         FROM
             film_info_t info LEFT JOIN film_detail_t detail ON info.`UUID` = detail.`film_id`
-        WHERE info.film_name LIKE '%#{filmName}%';
+        WHERE info.film_name LIKE CONCAT('%',#{filmName},'%');
     </select>
 
 </mapper>
