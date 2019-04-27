@@ -1,4 +1,4 @@
-package com.next.jiangzh.film.controller.film.vo;
+package com.next.jiangzh.film.controller.film.vo.response.filmdetail;
 
 import lombok.Data;
 

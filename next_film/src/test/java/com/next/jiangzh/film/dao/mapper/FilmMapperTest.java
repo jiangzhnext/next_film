@@ -1,10 +1,7 @@
 package com.next.jiangzh.film.dao.mapper;
 
-import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmInfoVO;
-import com.next.jiangzh.film.controller.cinema.vo.CinemaFilmVO;
-import com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO;
-import com.next.jiangzh.film.controller.film.vo.ActorResultVO;
-import com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.ActorResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

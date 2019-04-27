@@ -9,7 +9,7 @@
         <result column="actor_img" property="actorImg" />
     </resultMap>
 
-    <select id="describeActorsByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.ActorResultVO">
+    <select id="describeActorsByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.response.filmdetail.ActorResultVO">
         SELECT
             actor.`actor_img` AS imgAddress,
             actor.`actor_name` AS directorName,

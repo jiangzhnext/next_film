@@ -19,7 +19,7 @@
         <result column="film_status" property="filmStatus" />
     </resultMap>
 
-    <select id="describeFilmDetailByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
+    <select id="describeFilmDetailByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO">
         SELECT
             info.`film_name` AS filmName,
             detail.`film_en_name` AS filmEnName,
@@ -41,7 +41,7 @@
         WHERE info.`UUID` = #{filmId};
     </select>
 
-    <select id="describeFilmDetailByFilmName" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO">
+    <select id="describeFilmDetailByFilmName" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO">
         SELECT
             info.`film_name` AS filmName,
             detail.`film_en_name` AS filmEnName,

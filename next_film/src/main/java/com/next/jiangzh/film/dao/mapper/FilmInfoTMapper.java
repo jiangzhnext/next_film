@@ -1,6 +1,6 @@
 package com.next.jiangzh.film.dao.mapper;
 
-import com.next.jiangzh.film.controller.film.vo.FilmDetailResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO;
 import com.next.jiangzh.film.dao.entity.FilmInfoT;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
