@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 public class DescribeFilmListReqVO extends BaseVO implements Serializable {
 
-    private String showType="1";
+    private String showType="1";   // 判断待获取的电影类型
     private String sortId="1";
     private String catId="99";
     private String sourceId="99";
