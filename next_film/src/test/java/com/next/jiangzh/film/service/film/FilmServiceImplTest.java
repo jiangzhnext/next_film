@@ -5,7 +5,9 @@ import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.SourceInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.YearInfoResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.ActorResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.ImagesResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
@@ -142,14 +144,25 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void describeFilmImages() {
+    public void describeFilmImages() throws CommonServiceExcetion {
+        String filmId = "2";
+        ImagesResultVO imagesResultVO = filmServiceAPI.describeFilmImages(filmId);
+        System.out.println("imagesResultVO="+imagesResultVO);
     }
 
     @Test
-    public void describeDirector() {
+    public void describeDirector() throws CommonServiceExcetion {
+        String filmId = "2";
+        ActorResultVO resultVO = filmServiceAPI.describeDirector(filmId);
+        System.out.println("resultVO="+resultVO);
     }
 
     @Test
-    public void describeActors() {
+    public void describeActors() throws CommonServiceExcetion {
+        String filmId = "2";
+        List<ActorResultVO> results = filmServiceAPI.describeActors(filmId);
+        results.stream().forEach(
+                System.out::println
+        );
     }
 }

@@ -454,6 +454,9 @@ public class FilmServiceImpl implements FilmServiceAPI{
 
     @Override
     public List<ActorResultVO> describeActors(String filmId) throws CommonServiceExcetion {
-        return null;
+
+        List<ActorResultVO> results = actorTMapper.describeActorsByFilmId(filmId);
+
+        return results;
     }
 }
