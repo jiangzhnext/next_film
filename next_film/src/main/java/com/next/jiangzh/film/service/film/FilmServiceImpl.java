@@ -404,12 +404,52 @@ public class FilmServiceImpl implements FilmServiceAPI{
 
     @Override
     public ImagesResultVO describeFilmImages(String filmId) throws CommonServiceExcetion {
-        return null;
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_id",filmId);
+
+        ImagesResultVO imagesResultVO = new ImagesResultVO();
+
+        List<FilmDetailT> list = filmDetailTMapper.selectList(queryWrapper);
+        if(list!=null && list.size()>0){
+            FilmDetailT detailT = list.get(0);
+
+            String[] images = detailT.getFilmImgs().split(",");
+
+            // 验证images是否存在同时是不是五个
+
+            imagesResultVO.setMainImg(images[0]);
+            imagesResultVO.setImg01(images[1]);
+            imagesResultVO.setImg02(images[2]);
+            imagesResultVO.setImg03(images[3]);
+            imagesResultVO.setImg04(images[4]);
+        }
+
+        return imagesResultVO;
     }
 
     @Override
     public ActorResultVO describeDirector(String filmId) throws CommonServiceExcetion {
-        return null;
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_id",filmId);
+
+        String directorId="";
+        ActorResultVO resultVO = new ActorResultVO();
+
+        List<FilmDetailT> list = filmDetailTMapper.selectList(queryWrapper);
+        if(list!=null && list.size()>0){
+            FilmDetailT detailT = list.get(0);
+            directorId =  detailT.getDirectorId()+"";
+        }
+
+        // 根据filmId获取导演的编号
+        if(ToolUtils.isNotEmpty(directorId)){
+            FilmActorT filmActorT = actorTMapper.selectById(directorId);
+            resultVO.setDirectorName(filmActorT.getActorName());
+            resultVO.setImgAddress(filmActorT.getActorImg());
+        }
+        return resultVO;
     }
 
     @Override
