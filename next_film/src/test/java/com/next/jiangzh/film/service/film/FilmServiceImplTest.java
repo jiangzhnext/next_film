@@ -5,6 +5,7 @@ import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.SourceInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.YearInfoResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
@@ -127,7 +128,12 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void describeFilmDetails() {
+    public void describeFilmDetails() throws CommonServiceExcetion {
+        String searchType = "0";
+        String searchStr = "药神";
+
+        FilmDetailResultVO filmDetailResultVO = filmServiceAPI.describeFilmDetails(searchStr, searchType);
+        System.out.println("filmDetailResultVO="+filmDetailResultVO);
     }
 
     @Test

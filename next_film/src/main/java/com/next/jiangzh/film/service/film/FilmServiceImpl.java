@@ -374,7 +374,15 @@ public class FilmServiceImpl implements FilmServiceAPI{
 
     @Override
     public FilmDetailResultVO describeFilmDetails(String searchStr, String searchType) throws CommonServiceExcetion {
-        return null;
+        FilmDetailResultVO result;
+        // 0表示按照编号查找，1表示按照名称查找
+        if("0".equals(searchType)){
+            result = filmInfoTMapper.describeFilmDetailByFilmId(searchStr);
+        }else{
+            result = filmInfoTMapper.describeFilmDetailByFilmName(searchStr);
+        }
+
+        return result;
     }
 
     @Override
