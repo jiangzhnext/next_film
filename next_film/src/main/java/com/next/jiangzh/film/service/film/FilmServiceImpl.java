@@ -24,6 +24,8 @@ import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 
@@ -101,9 +103,37 @@ public class FilmServiceImpl implements FilmServiceAPI{
 
     @Override
     public List<SoonFilmListResultVO> describeSoonFilms() throws CommonServiceExcetion {
+        // 默认即将上映的影片在首页中只查看8条记录
+        Page<FilmInfoT> page = new Page<>(1,8);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_status","2");
 
-        return null;
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(page, queryWrapper);
+
+        List<SoonFilmListResultVO> results = Lists.newArrayList();
+
+        iPage.getRecords().stream().forEach((film) -> {
+            SoonFilmListResultVO vo = new SoonFilmListResultVO();
+
+            vo.setFilmType(film.getFilmType()+"");
+            vo.setImgAddress(film.getImgAddress());
+            vo.setFilmName(film.getFilmName());
+            vo.setFilmId(film.getUuid()+"");
+            vo.setExpectNum(film.getFilmPresalenum()+"");
+
+            vo.setShowTime(localTime2Str(film.getFilmTime()));
+
+            results.add(vo);
+        });
+
+        return results;
     }
+
+    private String localTime2Str(LocalDateTime localDateTime){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return dateTimeFormatter.format(localDateTime);
+    }
+
 
     @Override
     public List<RankFilmListResultVO> boxRandFilms() throws CommonServiceExcetion {
