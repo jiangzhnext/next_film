@@ -135,19 +135,98 @@ public class FilmServiceImpl implements FilmServiceAPI{
     }
 
 
+    /*
+        票房排行 - 正在热映的电影，top10
+     */
     @Override
     public List<RankFilmListResultVO> boxRandFilms() throws CommonServiceExcetion {
-        return null;
+
+        Page<FilmInfoT> page = new Page<>(1,10);
+        page.setDesc("film_box_office");
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_status","1");
+
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(page, queryWrapper);
+
+        List<RankFilmListResultVO> results = Lists.newArrayList();
+
+        iPage.getRecords().stream().forEach((film)->{
+            RankFilmListResultVO result = new RankFilmListResultVO();
+
+            result.setScore(film.getFilmScore());
+            result.setImgAddress(film.getImgAddress());
+            result.setFilmName(film.getFilmName());
+            result.setFilmId(film.getUuid()+"");
+            result.setExpectNum(film.getFilmPresalenum()+"");
+            result.setBoxNum(film.getFilmBoxOffice()+"");
+
+            results.add(result);
+        });
+
+        return results;
     }
 
+    /*
+        期待观影人数排行 - 即将上映
+     */
     @Override
     public List<RankFilmListResultVO> expectRandFilms() throws CommonServiceExcetion {
-        return null;
+        Page<FilmInfoT> page = new Page<>(1,10);
+        page.setDesc("film_preSaleNum");
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_status","2");
+
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(page, queryWrapper);
+
+        List<RankFilmListResultVO> results = Lists.newArrayList();
+
+        iPage.getRecords().stream().forEach((film)->{
+            RankFilmListResultVO result = new RankFilmListResultVO();
+
+            result.setScore(film.getFilmScore());
+            result.setImgAddress(film.getImgAddress());
+            result.setFilmName(film.getFilmName());
+            result.setFilmId(film.getUuid()+"");
+            result.setExpectNum(film.getFilmPresalenum()+"");
+            result.setBoxNum(film.getFilmBoxOffice()+"");
+
+            results.add(result);
+        });
+
+        return results;
     }
 
+    /*
+        评分排行 - 正在热映的电影
+     */
     @Override
     public List<RankFilmListResultVO> topRandFilms() throws CommonServiceExcetion {
-        return null;
+        Page<FilmInfoT> page = new Page<>(1,10);
+        page.setDesc("film_score");
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_status","1");
+
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(page, queryWrapper);
+
+        List<RankFilmListResultVO> results = Lists.newArrayList();
+
+        iPage.getRecords().stream().forEach((film)->{
+            RankFilmListResultVO result = new RankFilmListResultVO();
+
+            result.setScore(film.getFilmScore());
+            result.setImgAddress(film.getImgAddress());
+            result.setFilmName(film.getFilmName());
+            result.setFilmId(film.getUuid()+"");
+            result.setExpectNum(film.getFilmPresalenum()+"");
+            result.setBoxNum(film.getFilmBoxOffice()+"");
+
+            results.add(result);
+        });
+
+        return results;
     }
 
     @Override

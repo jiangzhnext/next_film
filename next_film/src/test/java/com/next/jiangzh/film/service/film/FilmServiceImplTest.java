@@ -2,6 +2,7 @@ package com.next.jiangzh.film.service.film;
 
 import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.SoonFilmListResultVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import lombok.extern.slf4j.Slf4j;
@@ -55,15 +56,27 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void boxRandFilms() {
+    public void boxRandFilms() throws CommonServiceExcetion {
+        List<RankFilmListResultVO> results = filmServiceAPI.boxRandFilms();
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
-    public void expectRandFilms() {
+    public void expectRandFilms() throws CommonServiceExcetion {
+        List<RankFilmListResultVO> results = filmServiceAPI.expectRandFilms();
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
-    public void topRandFilms() {
+    public void topRandFilms() throws CommonServiceExcetion {
+        List<RankFilmListResultVO> results = filmServiceAPI.topRandFilms();
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
