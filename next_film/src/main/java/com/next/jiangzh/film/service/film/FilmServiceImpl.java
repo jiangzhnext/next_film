@@ -2,6 +2,8 @@ package com.next.jiangzh.film.service.film;
 
 import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
@@ -16,6 +18,7 @@ import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResult
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.SoonFilmListResultVO;
 import com.next.jiangzh.film.dao.entity.FilmBannerT;
+import com.next.jiangzh.film.dao.entity.FilmInfoT;
 import com.next.jiangzh.film.dao.mapper.*;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +75,33 @@ public class FilmServiceImpl implements FilmServiceAPI{
 
     @Override
     public List<HotFilmListResultVO> describeHotFilms() throws CommonServiceExcetion {
-        return null;
+        // 默认热映的影片在首页中只查看8条记录
+        Page<FilmInfoT> page = new Page<>(1,8);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_status","1");
+
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(page, queryWrapper);
+
+        List<HotFilmListResultVO> results = Lists.newArrayList();
+
+        iPage.getRecords().stream().forEach((film) -> {
+            HotFilmListResultVO result = new HotFilmListResultVO();
+
+            result.setFilmId(film.getUuid()+"");
+            result.setImgAddress(film.getImgAddress());
+            result.setFilmType(film.getFilmType()+"");
+            result.setFilmScore(film.getFilmScore());
+            result.setFilmName(film.getFilmName());
+
+            results.add(result);
+        });
+
+        return results;
     }
 
     @Override
     public List<SoonFilmListResultVO> describeSoonFilms() throws CommonServiceExcetion {
+
         return null;
     }
 

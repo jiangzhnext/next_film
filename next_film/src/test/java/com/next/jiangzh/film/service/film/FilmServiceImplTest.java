@@ -1,6 +1,7 @@
 package com.next.jiangzh.film.service.film;
 
 import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -37,7 +38,11 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void describeHotFilms() {
+    public void describeHotFilms() throws CommonServiceExcetion {
+        List<HotFilmListResultVO> hotFilmListResultVOS = filmServiceAPI.describeHotFilms();
+        hotFilmListResultVOS.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
