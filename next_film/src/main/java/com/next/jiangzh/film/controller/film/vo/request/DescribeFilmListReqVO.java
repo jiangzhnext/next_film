@@ -21,6 +21,8 @@ public class DescribeFilmListReqVO extends BaseVO implements Serializable {
     @Override
     public void checkParam() throws ParamErrorException {
         // TODO
+        // showType如果不是1，2，3里的任意一个，则直接抛出异常
+        // sortId如果不是1，2，3里的任意一个，则直接抛出异常
     }
 
 }

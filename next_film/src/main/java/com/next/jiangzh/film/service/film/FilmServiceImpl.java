@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.next.jiangzh.film.common.utils.ToolUtils;
 import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -335,8 +337,39 @@ public class FilmServiceImpl implements FilmServiceAPI{
     }
 
     @Override
-    public List<DescribeFilmListResultVO> describeFilms(DescribeFilmListReqVO filmListReqVO) throws CommonServiceExcetion {
-        return null;
+    public IPage<FilmInfoT> describeFilms(DescribeFilmListReqVO filmListReqVO) throws CommonServiceExcetion {
+
+        Page<FilmInfoT> infoPage =
+                new Page<>(Long.parseLong(filmListReqVO.getNowPage()),Long.parseLong(filmListReqVO.getPageSize()));
+
+        // 排序方式 1-按热门搜索，2-按时间搜索，3-按评价搜索
+        Map<String,String> sortMap = Maps.newHashMap();
+        sortMap.put("1","film_preSaleNum");
+        sortMap.put("2","film_time");
+        sortMap.put("3","film_score");
+        // hashMap搜索的时间复杂度是 log0
+
+        infoPage.setDesc(sortMap.get(filmListReqVO.getSortId()));
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        // 判断待搜索列表内容  1-正在热映，2-即将上映，3-经典影片
+        queryWrapper.eq("film_status",filmListReqVO.getShowType());
+
+        // 组织QueryWrapper的内容
+        if(!"99".equals(filmListReqVO.getSourceId())){
+            queryWrapper.eq("film_source",filmListReqVO.getSourceId());
+        }
+        if(!"99".equals(filmListReqVO.getYearId())){
+            queryWrapper.eq("film_date",filmListReqVO.getYearId());
+        }
+        // #3#2#12   #1# 11 111
+        if(!"99".equals(filmListReqVO.getCatId())){
+            queryWrapper.like("film_cats","#"+filmListReqVO.getCatId()+"#");
+        }
+
+        IPage<FilmInfoT> iPage = filmInfoTMapper.selectPage(infoPage, queryWrapper);
+
+        return iPage;
     }
 
     @Override

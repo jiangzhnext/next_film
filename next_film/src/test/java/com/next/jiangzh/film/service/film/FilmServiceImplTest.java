@@ -1,5 +1,7 @@
 package com.next.jiangzh.film.service.film;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.SourceInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.YearInfoResultVO;
@@ -7,6 +9,7 @@ import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultV
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.SoonFilmListResultVO;
+import com.next.jiangzh.film.dao.entity.FilmInfoT;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -115,7 +118,12 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void describeFilms() {
+    public void describeFilms() throws CommonServiceExcetion {
+        DescribeFilmListReqVO reqVO = new DescribeFilmListReqVO();
+
+        IPage<FilmInfoT> filmInfoTIPage = filmServiceAPI.describeFilms(reqVO);
+
+        System.out.println(filmInfoTIPage.getCurrent()+" , "+filmInfoTIPage.getPages()+" , "+filmInfoTIPage.getRecords().size());
     }
 
     @Test
