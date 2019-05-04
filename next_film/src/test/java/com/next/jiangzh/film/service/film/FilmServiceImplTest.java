@@ -137,7 +137,8 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void describeFilmBio() {
+    public void describeFilmBio() throws CommonServiceExcetion {
+        System.out.println(filmServiceAPI.describeFilmBiography("2"));
     }
 
     @Test

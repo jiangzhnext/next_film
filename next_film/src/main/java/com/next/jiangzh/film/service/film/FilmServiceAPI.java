@@ -81,7 +81,7 @@ public interface FilmServiceAPI {
     /*
         获取影片描述信息
      */
-    String describeFilmBio(String filmId) throws CommonServiceExcetion;
+    String describeFilmBiography(String filmId) throws CommonServiceExcetion;
 
     /*
         获取影片图片信息

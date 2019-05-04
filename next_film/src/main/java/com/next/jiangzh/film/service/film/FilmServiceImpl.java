@@ -386,8 +386,20 @@ public class FilmServiceImpl implements FilmServiceAPI{
     }
 
     @Override
-    public String describeFilmBio(String filmId) throws CommonServiceExcetion {
-        return null;
+    public String describeFilmBiography(String filmId) throws CommonServiceExcetion {
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("film_id",filmId);
+
+        String biography="";
+
+        List<FilmDetailT> list = filmDetailTMapper.selectList(queryWrapper);
+        if(list!=null && list.size()>0){
+            FilmDetailT detailT = list.get(0);
+            biography = detailT.getBiography();
+        }
+
+        return biography;
     }
 
     @Override
