@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.next.jiangzh.film.common.utils.ToolUtils;
 import com.next.jiangzh.film.controller.film.vo.request.DescribeFilmListReqVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.condition.SourceInfoResultVO;
@@ -17,8 +18,7 @@ import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultV
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.SoonFilmListResultVO;
-import com.next.jiangzh.film.dao.entity.FilmBannerT;
-import com.next.jiangzh.film.dao.entity.FilmInfoT;
+import com.next.jiangzh.film.dao.entity.*;
 import com.next.jiangzh.film.dao.mapper.*;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FilmServiceImpl implements FilmServiceAPI{
@@ -232,22 +233,105 @@ public class FilmServiceImpl implements FilmServiceAPI{
     @Override
     public String checkCondition(String conditionId, String type) throws CommonServiceExcetion {
 
-        return null;
+        switch (type){
+            case "source":
+                if("99".equals(conditionId)){
+                    return conditionId;
+                }
+                FilmSourceDictT filmSourceDictT = sourceDictTMapper.selectById(conditionId);
+                if(filmSourceDictT!=null && ToolUtils.isNotEmpty(filmSourceDictT.getUuid()+"")){
+                    return conditionId;
+                }else{
+                    return "99";
+                }
+            case "year":
+                if("99".equals(conditionId)){
+                    return conditionId;
+                }
+                FilmYearDictT filmYearDictT = yearDictTMapper.selectById(conditionId);
+                if(filmYearDictT!=null && ToolUtils.isNotEmpty(filmYearDictT.getUuid()+"")){
+                    return conditionId;
+                }else{
+                    return "99";
+                }
+            case "cat":
+                if("99".equals(conditionId)){
+                    return conditionId;
+                }
+                FilmCatDictT filmCatDictT = catDictTMapper.selectById(conditionId);
+                if(filmCatDictT!=null && ToolUtils.isNotEmpty(filmCatDictT.getUuid()+"")){
+                    return conditionId;
+                }else{
+                    return "99";
+                }
+            default:
+                throw new CommonServiceExcetion(404,"invalid conditonType!!");
+        }
     }
 
     @Override
     public List<CatInfoResultVO> describeCatInfos(String catId) throws CommonServiceExcetion {
-        return null;
+        List<FilmCatDictT> catDicts
+                = catDictTMapper.selectList(null);
+
+        List<CatInfoResultVO> results =
+                catDicts.stream().map((data)->{
+                    CatInfoResultVO result = new CatInfoResultVO();
+                    result.setCatId(data.getUuid()+"");
+                    result.setCatName(data.getShowName());
+
+                    if (catId.equals(data.getUuid()+"")) {
+                        result.setIsActive("true");
+                    }else{
+                        result.setIsActive("false");
+                    }
+                    return result;
+                }).collect(Collectors.toList());
+
+        return results;
     }
 
     @Override
     public List<SourceInfoResultVO> describeSourceInfos(String sourceId) throws CommonServiceExcetion {
-        return null;
+        List<FilmSourceDictT> sourceDicts
+                = sourceDictTMapper.selectList(null);
+
+        List<SourceInfoResultVO> results =
+                sourceDicts.stream().map((data)->{
+                    SourceInfoResultVO result = new SourceInfoResultVO();
+                    result.setSourceId(data.getUuid()+"");
+                    result.setSourceName(data.getShowName());
+
+                    if(sourceId.equals(data.getUuid()+"")){
+                        result.setIsActive("true");
+                    }else{
+                        result.setIsActive("false");
+                    }
+                   return result;
+                }).collect(Collectors.toList());
+
+        return results;
     }
 
     @Override
     public List<YearInfoResultVO> describeYearInfos(String yearId) throws CommonServiceExcetion {
-        return null;
+        List<FilmYearDictT> filmYearDicts
+                = yearDictTMapper.selectList(null);
+
+        List<YearInfoResultVO> results =
+                filmYearDicts.stream().map((data)->{
+                    YearInfoResultVO result = new YearInfoResultVO();
+                    result.setYearId(data.getUuid()+"");
+                    result.setYearName(data.getShowName());
+                    if(yearId.equals(data.getUuid()+"")){
+                        result.setIsActive("true");
+                    }else{
+                        result.setIsActive("false");
+                    }
+                    return result;
+                }).collect(Collectors.toList());
+
+        return results;
     }
 
     @Override

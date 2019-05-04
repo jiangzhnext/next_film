@@ -1,5 +1,8 @@
 package com.next.jiangzh.film.service.film;
 
+import com.next.jiangzh.film.controller.film.vo.response.condition.CatInfoResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.condition.SourceInfoResultVO;
+import com.next.jiangzh.film.controller.film.vo.response.condition.YearInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.BannerInfoResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.HotFilmListResultVO;
 import com.next.jiangzh.film.controller.film.vo.response.index.RankFilmListResultVO;
@@ -80,19 +83,35 @@ public class FilmServiceImplTest {
     }
 
     @Test
-    public void checkCondition() {
+    public void checkCondition() throws CommonServiceExcetion {
+        String conditionId="5";
+        String type="year";
+        String checkCondition = filmServiceAPI.checkCondition(conditionId, type);
+        System.out.println("checkCondition="+checkCondition);
     }
 
     @Test
-    public void describeCatInfos() {
+    public void describeCatInfos() throws CommonServiceExcetion {
+        List<CatInfoResultVO> results = filmServiceAPI.describeCatInfos("3");
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
-    public void describeSourceInfos() {
+    public void describeSourceInfos() throws CommonServiceExcetion {
+        List<SourceInfoResultVO> results = filmServiceAPI.describeSourceInfos("1");
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
-    public void describeYearInfos() {
+    public void describeYearInfos() throws CommonServiceExcetion {
+        List<YearInfoResultVO> results = filmServiceAPI.describeYearInfos("5");
+        results.stream().forEach(
+                System.out::println
+        );
     }
 
     @Test
