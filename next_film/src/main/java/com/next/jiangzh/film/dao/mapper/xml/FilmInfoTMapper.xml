@@ -21,6 +21,7 @@
 
     <select id="describeFilmDetailByFilmId" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO">
         SELECT
+            info.`uuid` AS filmId,
             info.`film_name` AS filmName,
             detail.`film_en_name` AS filmEnName,
             info.`img_address` AS imgAddress,
@@ -43,6 +44,7 @@
 
     <select id="describeFilmDetailByFilmName" parameterType="java.util.Map" resultType="com.next.jiangzh.film.controller.film.vo.response.filmdetail.FilmDetailResultVO">
         SELECT
+            info.`uuid` AS filmId,
             info.`film_name` AS filmName,
             detail.`film_en_name` AS filmEnName,
             info.`img_address` AS imgAddress,

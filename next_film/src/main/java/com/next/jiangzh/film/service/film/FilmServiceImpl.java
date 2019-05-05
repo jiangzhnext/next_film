@@ -132,6 +132,18 @@ public class FilmServiceImpl implements FilmServiceAPI{
         return results;
     }
 
+    @Override
+    public int describeIndexFilmNum(String filmType) throws CommonServiceExcetion {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        if("2".equals(filmType)){
+            queryWrapper.eq("film_status","2");
+        }else{
+            queryWrapper.eq("film_status","1");
+        }
+
+        return filmInfoTMapper.selectCount(queryWrapper);
+    }
+
     private String localTime2Str(LocalDateTime localDateTime){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dateTimeFormatter.format(localDateTime);

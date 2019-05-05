@@ -38,6 +38,12 @@ public interface FilmServiceAPI {
     List<SoonFilmListResultVO> describeSoonFilms() throws CommonServiceExcetion;
 
     /*
+        获取热映或即将上映的影片数量
+        filmType 1-热映 2-即将上映
+     */
+    int describeIndexFilmNum(String filmType) throws CommonServiceExcetion;
+
+    /*
         票房排行
      */
     List<RankFilmListResultVO> boxRandFilms() throws CommonServiceExcetion;
