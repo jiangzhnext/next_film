@@ -19,12 +19,52 @@
 
     <select id="describeOrderDetailsById" parameterType="java.util.Map"
             resultType="com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO">
-
+        SELECT
+            o.`UUID` AS orderId,
+            hall.`film_name` AS filmName,
+            CONCAT(DATE_FORMAT(o.`order_time`,'%y年%m月%d日'),' ',f.`begin_time`) AS fieldTime,
+            c.`cinema_name` AS cinemaName,
+            o.`seats_name` AS seatsName,
+            o.`order_price` AS orderPrice,
+            CASE
+                WHEN o.`order_status`=0 THEN '待支付'
+                WHEN o.`order_status`=1 THEN '已支付'
+                WHEN o.`order_status`=2 THEN '已关闭'
+                ELSE '已关闭'
+            END orderStatus
+        FROM
+            film_order_t o,film_field_t f,
+            film_hall_film_info_t hall,film_cinema_t c
+        WHERE
+            o.`cinema_id` = c.`UUID`
+        AND o.`field_id` = f.`UUID`
+        AND o.`film_id` = hall.`film_id`
+        AND o.`UUID` = #{orderId}
     </select>
 
     <select id="describeOrderDetailsByUser" parameterType="java.util.Map"
             resultType="com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO">
-
+        select
+            o.`UUID` as orderId,
+            hall.`film_name` as filmName,
+            concat(date_format(o.`order_time`,'%y年%m月%d日'),' ',f.`begin_time`) as fieldTime,
+            c.`cinema_name` as cinemaName,
+            o.`seats_name` as seatsName,
+            o.`order_price` as orderPrice,
+            CASE
+                WHEN o.`order_status`=0 THEN '待支付'
+                WHEN o.`order_status`=1 THEN '已支付'
+                WHEN o.`order_status`=2 THEN '已关闭'
+                ELSE '已关闭'
+            END orderStatus
+        from
+            film_order_t o,film_field_t f,
+            film_hall_film_info_t hall,film_cinema_t c
+        where
+            o.`cinema_id` = c.`UUID`
+        and o.`field_id` = f.`UUID`
+        and o.`film_id` = hall.`film_id`
+        and o.`order_user` = #{userId}
     </select>
 
     <select id="describeFilmPriceByFieldId" parameterType="java.util.Map"
