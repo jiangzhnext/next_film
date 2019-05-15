@@ -35,7 +35,7 @@ public class EntityGenerator {
 
     static{
         tableNames = new String[]{
-                "film_banner_t","film_cat_dict_t","film_source_dict_t","film_year_dict_t","film_info_t","film_detail_t","film_actor_t","film_actor_rela_t",
+                "film_order_t"
         };
     }
 
