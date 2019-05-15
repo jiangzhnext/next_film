@@ -16,4 +16,24 @@
         <result column="order_user" property="orderUser" />
         <result column="order_status" property="orderStatus" />
     </resultMap>
+
+    <select id="describeOrderDetailsById" parameterType="java.util.Map"
+            resultType="com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO">
+
+    </select>
+
+    <select id="describeOrderDetailsByUser" parameterType="java.util.Map"
+            resultType="com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO">
+
+    </select>
+
+    <select id="describeFilmPriceByFieldId" parameterType="java.util.Map"
+            resultType="com.next.jiangzh.film.service.order.bo.OrderPriceBO">
+
+    </select>
+
+    <select id="describeSoldSeats" parameterType="java.util.Map"
+            resultType="java.lang.String">
+
+    </select>
 </mapper>
