@@ -69,11 +69,16 @@
 
     <select id="describeFilmPriceByFieldId" parameterType="java.util.Map"
             resultType="com.next.jiangzh.film.service.order.bo.OrderPriceBO">
-
+        select
+            cinema_id as cinemaId,
+            price as filmPrice
+        from film_field_t
+        where uuid= #{fieldId}
     </select>
 
     <select id="describeSoldSeats" parameterType="java.util.Map"
             resultType="java.lang.String">
-
+        select group_concat(seats_ids) from film_order_t where field_id = #{fieldId}
     </select>
+
 </mapper>

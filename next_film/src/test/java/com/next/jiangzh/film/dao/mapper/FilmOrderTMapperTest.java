@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
 import com.next.jiangzh.film.dao.entity.FilmOrderT;
+import com.next.jiangzh.film.service.order.bo.OrderPriceBO;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,21 @@ public class FilmOrderTMapperTest {
                 System.out::println
         );
 
+    }
+
+
+    @Test
+    public void describeFilmPriceByFieldId(){
+        String fieldId = "1";
+        OrderPriceBO orderPriceBO = orderTMapper.describeFilmPriceByFieldId(fieldId);
+        System.out.println("orderPriceBO="+orderPriceBO);
+    }
+
+    @Test
+    public void describeSoldSeats(){
+        String fieldId = "1";
+        String soldSeats = orderTMapper.describeSoldSeats(fieldId);
+        System.out.println("soldSeats="+soldSeats);
     }
 
 }
