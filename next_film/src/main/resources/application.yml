@@ -34,3 +34,6 @@ logging:
 
 film:
   img-pre: http://img.nextfilm.cn/
+
+order:
+  file-path-pre : C:/Users/A/Desktop/
