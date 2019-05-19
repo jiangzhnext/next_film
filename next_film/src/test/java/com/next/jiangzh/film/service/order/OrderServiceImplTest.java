@@ -1,5 +1,7 @@
 package com.next.jiangzh.film.service.order;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -23,19 +25,33 @@ public class OrderServiceImplTest {
     @Test
     public void checkSeats() throws CommonServiceExcetion, IOException {
         String fieldId = "1";
-        String seats = "1,3,0";
+        String seats = "1,3,4";
         orderServiceAPI.checkSeats(fieldId,seats);
     }
 
     @Test
-    public void checkSoldSeats() {
+    public void checkSoldSeats() throws CommonServiceExcetion {
+        String fieldId = "1";
+        String seats = "1,3,0";
+        orderServiceAPI.checkSoldSeats(fieldId,seats);
+    }
+
+
+    @Test
+    public void describeOrderInfoByUser() throws CommonServiceExcetion {
+        String userId = "1";
+        int nowPage = 1;
+        int pageSize = 10;
+
+        IPage<OrderDetailResVO> orderDetailResVOIPage = orderServiceAPI.describeOrderInfoByUser(nowPage, pageSize, userId);
+        orderDetailResVOIPage.getRecords().stream().forEach(
+                System.out::println
+        );
+
     }
 
     @Test
     public void saveOrder() {
     }
 
-    @Test
-    public void describeOrderInfoByUser() {
-    }
 }

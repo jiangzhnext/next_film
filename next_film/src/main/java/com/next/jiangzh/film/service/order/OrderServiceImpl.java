@@ -3,11 +3,13 @@ package com.next.jiangzh.film.service.order;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.next.jiangzh.film.common.utils.ToolUtils;
 import com.next.jiangzh.film.config.properties.OrderProperties;
 import com.next.jiangzh.film.controller.cinema.vo.FieldHallInfoVO;
 import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
+import com.next.jiangzh.film.dao.entity.FilmOrderT;
 import com.next.jiangzh.film.dao.mapper.FilmOrderTMapper;
 import com.next.jiangzh.film.service.cinema.CinemaServiceAPI;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
@@ -76,9 +78,35 @@ public class OrderServiceImpl implements OrderServiceAPI{
 
     }
 
+
+    /*
+        检查待售卖的座位是否有已售座位信息
+     */
     @Override
     public void checkSoldSeats(String fieldId, String seats) throws CommonServiceExcetion {
+        String soldSeats = filmOrderTMapper.describeSoldSeats(fieldId);
+        /*
+            用户购买： 3,11,12
+            ids: 1 - 24
+         */
+        List<String> soldSeatsList = Arrays.asList(soldSeats.split(","));
+        String[] seatArr = seats.split(",");
 
+        for(String seatId : seatArr){
+            boolean contains = soldSeatsList.contains(seatId);
+            if(contains){
+                throw new CommonServiceExcetion(500,seatId+" 为已售座位，不能重复销售");
+            }
+        }
+    }
+
+    /*
+        根据用户编号，获取用户订单信息列表
+     */
+    @Override
+    public IPage<OrderDetailResVO> describeOrderInfoByUser(int nowPage,int pageSize,String userId) throws CommonServiceExcetion {
+        Page<FilmOrderT> page = new Page<>(nowPage,pageSize);
+        return filmOrderTMapper.describeOrderDetailsByUser(page,userId);
     }
 
     @Override
@@ -86,9 +114,6 @@ public class OrderServiceImpl implements OrderServiceAPI{
         return null;
     }
 
-    @Override
-    public IPage<OrderDetailResVO> describeOrderInfoByUser(String userId) throws CommonServiceExcetion {
-        return null;
-    }
+
 
 }
