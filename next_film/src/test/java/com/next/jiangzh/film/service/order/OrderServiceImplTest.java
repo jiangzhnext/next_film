@@ -51,7 +51,14 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void saveOrder() {
+    public void saveOrder() throws CommonServiceExcetion {
+        String field = "1";
+        String seatIds = "10,11,12";
+        String seatNames = "健康的交流开发";
+        String userId = "1";
+
+        System.out.println(orderServiceAPI.saveOrder(seatIds,seatNames,field,userId));
+
     }
 
 }
