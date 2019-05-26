@@ -1,6 +1,7 @@
 package com.next.jiangzh.film.controller.order;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.google.common.util.concurrent.RateLimiter;
 import com.next.jiangzh.film.controller.common.BaseResponseVO;
 import com.next.jiangzh.film.controller.common.TraceUtil;
 import com.next.jiangzh.film.controller.exception.ParamErrorException;
@@ -25,6 +26,10 @@ public class OrderController {
     @RequestMapping(value = "/buyTickets",method = RequestMethod.GET)
     public BaseResponseVO buyTickets(
             String fieldId,String soldSeats,String seatsName) throws CommonServiceExcetion {
+
+        // 购票的限流措施
+        RateLimiter rateLimiter = RateLimiter.create(20);
+        rateLimiter.acquire(1);
 
         // soldSeats 验证是否为真实有效的座位信息
         try {
