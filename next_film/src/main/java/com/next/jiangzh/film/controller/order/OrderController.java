@@ -6,6 +6,8 @@ import com.next.jiangzh.film.controller.common.BaseResponseVO;
 import com.next.jiangzh.film.controller.common.TraceUtil;
 import com.next.jiangzh.film.controller.exception.ParamErrorException;
 import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
+import com.next.jiangzh.film.controller.order.vo.response.OrderPayResVO;
+import com.next.jiangzh.film.controller.order.vo.response.QRCodeResVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import com.next.jiangzh.film.service.order.OrderServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,9 @@ public class OrderController {
     @Autowired
     private OrderServiceAPI orderServiceAPI;
 
-    @RequestMapping(value = "/buyTickets",method = RequestMethod.GET)
+    @RequestMapping(value = "/buyTickets", method = RequestMethod.GET)
     public BaseResponseVO buyTickets(
-            String fieldId,String soldSeats,String seatsName) throws CommonServiceExcetion {
+            String fieldId, String soldSeats, String seatsName) throws CommonServiceExcetion {
 
         // 购票的限流措施
         RateLimiter rateLimiter = RateLimiter.create(20);
@@ -33,12 +35,12 @@ public class OrderController {
 
         // soldSeats 验证是否为真实有效的座位信息
         try {
-            orderServiceAPI.checkSeats(fieldId,soldSeats);
+            orderServiceAPI.checkSeats(fieldId, soldSeats);
         } catch (IOException e) {
-            throw new CommonServiceExcetion(404,"场次座位信息无法读取！");
+            throw new CommonServiceExcetion(404, "场次座位信息无法读取！");
         }
         // soldSeats 验证是否是未销售的座位
-        orderServiceAPI.checkSoldSeats(fieldId,soldSeats);
+        orderServiceAPI.checkSoldSeats(fieldId, soldSeats);
 
         String userId = TraceUtil.getUserId();
 
@@ -48,12 +50,12 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "/getOrderInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/getOrderInfo", method = RequestMethod.GET)
     public BaseResponseVO getOrderInfo(
-            @RequestParam(name = "nowPage",required = false,defaultValue = "1") int nowPage,
-            @RequestParam(name = "pageSize",required = false,defaultValue = "5") int pageSize) throws ParamErrorException, CommonServiceExcetion {
+            @RequestParam(name = "nowPage", required = false, defaultValue = "1") int nowPage,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize) throws ParamErrorException, CommonServiceExcetion {
 
-        checkGetOrderInfoParams(nowPage,pageSize);
+        checkGetOrderInfoParams(nowPage, pageSize);
 
         // 使用用户的JWT信息来获取内容
         String userId = TraceUtil.getUserId();
@@ -68,9 +70,30 @@ public class OrderController {
     }
 
     private void checkGetOrderInfoParams
-            (int nowPage,int pageSize) throws ParamErrorException {
+            (int nowPage, int pageSize) throws ParamErrorException {
         // nowpage必须大于1
         // pageSize必须大于0
+    }
+
+
+    @RequestMapping(value = "/getPayInfo", method = RequestMethod.GET)
+    public BaseResponseVO getPayInfo(String orderId) throws CommonServiceExcetion {
+
+        QRCodeResVO qrCodeResVO = orderServiceAPI.describeQRCodeAddress(orderId);
+
+        return BaseResponseVO.success(qrCodeResVO);
+    }
+
+    @RequestMapping(value = "/getPayResult", method = RequestMethod.GET)
+    public BaseResponseVO getPayResult(String orderId,
+                                       @RequestParam(name = "tryNums", required = false, defaultValue = "1") Integer tryNums) throws CommonServiceExcetion {
+
+        if(tryNums < 4){
+            OrderPayResVO orderPayResVO = orderServiceAPI.describePayResult(orderId);
+            return BaseResponseVO.success(orderPayResVO);
+        }else{
+            throw new CommonServiceExcetion(500,"支付超时");
+        }
     }
 
 }

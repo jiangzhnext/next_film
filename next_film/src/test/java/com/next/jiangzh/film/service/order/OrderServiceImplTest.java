@@ -2,6 +2,7 @@ package com.next.jiangzh.film.service.order;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
+import com.next.jiangzh.film.controller.order.vo.response.QRCodeResVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -61,4 +62,16 @@ public class OrderServiceImplTest {
 
     }
 
+
+    @Test
+    public void describeQRCodeAddress() throws CommonServiceExcetion {
+        String orderId = "415sdf58ew12ds5fe1";
+        System.out.println("qrCode path="+orderServiceAPI.describeQRCodeAddress(orderId));
+    }
+
+    @Test
+    public void describePayResult() throws CommonServiceExcetion {
+        String orderId = "415sdf58ew12ds5fe1";
+        System.out.println("订单支付状态："+orderServiceAPI.describePayResult(orderId));
+    }
 }

@@ -2,6 +2,8 @@ package com.next.jiangzh.film.service.order;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.next.jiangzh.film.controller.order.vo.response.OrderDetailResVO;
+import com.next.jiangzh.film.controller.order.vo.response.OrderPayResVO;
+import com.next.jiangzh.film.controller.order.vo.response.QRCodeResVO;
 import com.next.jiangzh.film.service.common.exception.CommonServiceExcetion;
 
 import java.io.FileNotFoundException;
@@ -30,5 +32,15 @@ public interface OrderServiceAPI {
         根据用户编号，获取该用户购买过的电影票订单信息
      */
     IPage<OrderDetailResVO> describeOrderInfoByUser(int nowPage,int pageSize,String userId) throws CommonServiceExcetion;
+
+    /*
+        获取二维码地址
+     */
+    QRCodeResVO describeQRCodeAddress(String orderId) throws CommonServiceExcetion;
+
+    /*
+        获取订单支付状态
+     */
+    OrderPayResVO describePayResult(String orderId) throws CommonServiceExcetion;
 
 }
