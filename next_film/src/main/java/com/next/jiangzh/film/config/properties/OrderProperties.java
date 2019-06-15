@@ -12,5 +12,6 @@ public class OrderProperties {
     public static final String ORDER_PREFIX="order";
 
     private String filePathPre;
+    private String alipayCallbackPath;
 
 }

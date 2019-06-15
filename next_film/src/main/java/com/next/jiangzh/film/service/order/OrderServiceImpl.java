@@ -203,6 +203,27 @@ public class OrderServiceImpl implements OrderServiceAPI{
         return orderPayResVO;
     }
 
+    /*
+        支付成功处理
+     */
+    @Override
+    public void orderPaySuccess(String orderId) throws CommonServiceExcetion {
+        // 分布式 or 微服务 一定要考虑幂等性
+        // 验证订单是否为待支付状态，如果是则继续处理，如果不是则异常返回
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("UUID",orderId);
+        // order_status = 0
+
+        FilmOrderT filmOrderT = new FilmOrderT();
+        filmOrderT.setOrderStatus(1); // 支付成功状态
+
+        int update = filmOrderTMapper.update(filmOrderT, queryWrapper);
+//        if(update != 1){
+//            throw new CommonServiceExcetion(500,"订单支付失败");
+//        }
+    }
+
     // seatIds = 1，2，3，4
     @Override
     public OrderDetailResVO saveOrder(String seatIds, String seatNames, String fieldId, String userId) throws CommonServiceExcetion {
@@ -310,7 +331,7 @@ public class OrderServiceImpl implements OrderServiceAPI{
                 .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
                 .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
                 .setTimeoutExpress(timeoutExpress)
-                //                .setNotifyUrl("http://www.test-notify-url.com")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                .setNotifyUrl(orderProperties.getAlipayCallbackPath())//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
                 .setGoodsDetailList(goodsDetailList);
 
         AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);

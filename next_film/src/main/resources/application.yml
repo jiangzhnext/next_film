@@ -37,3 +37,4 @@ film:
 
 order:
   file-path-pre : C:/Users/A/Desktop/
+  alipay-callback-path : http://nextfilm.natapp1.cc/order/alipay/callback

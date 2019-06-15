@@ -43,4 +43,9 @@ public interface OrderServiceAPI {
      */
     OrderPayResVO describePayResult(String orderId) throws CommonServiceExcetion;
 
+    /*
+        当支付宝返回成功状态时，我们应该进行的处理
+     */
+    void orderPaySuccess(String orderId) throws CommonServiceExcetion;
+
 }
