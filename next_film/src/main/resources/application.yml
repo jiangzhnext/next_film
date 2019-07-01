@@ -36,5 +36,5 @@ film:
   img-pre: http://img.nextfilm.cn/
 
 order:
-  file-path-pre : C:/Users/A/Desktop/
+  file-path-pre : F:/workSpace/next_workspace/imags/
   alipay-callback-path : http://nextfilm.natapp1.cc/order/alipay/callback
